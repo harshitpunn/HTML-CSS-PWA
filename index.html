@@ -1,0 +1,58 @@
+<html>
+
+<head>
+  <title></title>
+  <script>
+    // does the browser support service workers?
+    if ('serviceWorker' in navigator) {
+      // fires when the service worker is ready
+      navigator.serviceWorker.ready.then(reg => {
+        // we have an active service worker working for us
+        console.log(`Service Worker ready (Scope: ${reg.scope})`);
+        // do something interesting, if you want...
+
+      });
+      // then register our service worker
+      navigator.serviceWorker.register('./sw.js', { scope: '/' })
+        .then(function (reg) {
+          // display a success message
+          console.log(`Service Worker Registration (Scope: ${reg.scope})`);
+        })
+        .catch(function (error) {
+          // display an error message
+          console.log(`Service Worker Error (${error})`);
+        });
+    } else {
+      // happens when the app isn't served over a TLS connection (HTTPS)
+      console.warn('Service Worker not available');
+    }
+  </script>
+</head>
+
+<body>
+  <form action="#" id="form1">
+    <div class="form">
+      <div class="form-group">
+        <label for="cityName">City Name:</label>
+        <input type="text" id="cityName" placeholder="City name is here..." required />
+      </div>
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <input type="text" id="country" placeholder="Country name is here..." required />
+      </div>
+      <div class="form-group">
+        <label for="population">Population:</label>
+        <input type="text" id="population" placeholder="Population here..." required />
+      </div>
+      <div class="form-group">
+        <label for="countryImage">Country Image:</label>
+        <input type="text" id="countryImage" placeholder="Country Image here..." required />
+      </div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
+  <script src="index.js" defer></script>
+</body>
+
+</html>
